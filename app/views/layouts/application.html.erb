@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MLK Registration 2014</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div class="navbar navbar-static-top">
+  <div class="navbar-inner">
+    <%= link_to "MLK Registration 2014", root_path, :class=>"brand" %>
+    <ul class="nav pull-right">
+      <% if user_signed_in? %>
+        <li><%= link_to current_user.name, root_path %></li>
+        <li class="active"><%= link_to "Logout", destroy_user_session_path, :method=>"delete" %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+<%= render partial: "layouts/messages", flash: flash %>
+<%= yield %>
+
+</body>
+</html>
