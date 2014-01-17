@@ -1,5 +1,5 @@
 class School < ActiveRecord::Base
-  attr_accessible :coach, :name, :amount_due, :done, :phone_number
+  attr_accessible :coach, :name, :amount_due, :done, :phone_number, :user_id
   belongs_to :user
   has_many :payment_modifications, :dependent => :destroy
   has_many :payments, :dependent => :destroy

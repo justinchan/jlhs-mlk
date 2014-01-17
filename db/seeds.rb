@@ -8,3 +8,4 @@
 User.create(first_name: 'Justin', last_name: 'Chan', email: 'hellojustinchan@gmail.com', password:'justinchan123')
 User.create(first_name: 'Lucia', last_name: 'Song', email: 'lucia.song@yahoo.com', password: 'luciasong123')
 User.create(first_name: 'Tony', last_name: 'Thaweethai', email: 'tony.thaweethai@gmail.com', password: 'tonythaweethai123')
+
