@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140117091603) do
+ActiveRecord::Schema.define(:version => 20140117100623) do
 
   create_table "cashes", :force => true do |t|
     t.datetime "created_at", :null => false
@@ -44,12 +44,12 @@ ActiveRecord::Schema.define(:version => 20140117091603) do
   create_table "schools", :force => true do |t|
     t.string   "name"
     t.string   "coach"
-    t.datetime "created_at",                                                    :null => false
-    t.datetime "updated_at",                                                    :null => false
-    t.decimal  "amount_due",   :precision => 8, :scale => 2
-    t.boolean  "done",                                       :default => false
-    t.integer  "phone_number"
+    t.datetime "created_at",                                                                 :null => false
+    t.datetime "updated_at",                                                                 :null => false
+    t.decimal  "amount_due",                :precision => 8, :scale => 2
+    t.boolean  "done",                                                    :default => false
     t.integer  "user_id"
+    t.integer  "phone_number", :limit => 8
   end
 
   create_table "users", :force => true do |t|
