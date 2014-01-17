@@ -8,6 +8,8 @@ class DashboardController < ApplicationController
 		end
 	end
 
+
+
 	def admin
 		@schools = School.all(:order => 'name')
 	end
@@ -27,7 +29,7 @@ class DashboardController < ApplicationController
 		name = input[:name]
 		coach = input[:coach]
 		amount_due = BigDecimal.new(input[:amount_due]).round(2)
-		school = School.create(:name => name, :coach => coach, :amount_due => amount_due, :original_amount_due => amount_due)
+		school = School.create(:name => name, :coach => coach, :amount_due => amount_due)
 		school.save
 		flash[:notice] = "Added school."
 		redirect_to admin_path
