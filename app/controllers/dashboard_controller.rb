@@ -20,7 +20,17 @@ class DashboardController < ApplicationController
 		school_to_register.done = true
 		school_to_register.user = current_user
 		school_to_register.save
-		flash[:notice] = "School registered"
+		flash[:notice] = "School registered."
+		redirect_to dashboard_path
+	end
+
+	def unregister_school
+		param_id = params[:id]
+		school_to_register = School.find_by_id(param_id)
+		school_to_register.done = false
+		school_to_register.user = nil
+		school_to_register.save
+		flash[:notice] = "School unregistered."
 		redirect_to dashboard_path
 	end
 
@@ -69,6 +79,24 @@ class DashboardController < ApplicationController
 			flash[:error] = "You're missing the bank or check number."
 		end
 		redirect_to edit_school_path(param_id)
+	end
+
+	def delete_payment
+		school_id = params[:school_id]
+		payment_id = params[:payment_id]
+		payment_to_delete = Payment.find_by_id(payment_id)
+		payment_to_delete.delete
+		flash[:error] = "Deleted payment."
+		redirect_to edit_school_path(school_id)
+	end
+
+	def delete_payment_modification
+		school_id = params[:school_id]
+		payment_mod_id = params[:payment_mod_id]
+		payment_mod_to_delete = PaymentModification.find_by_id(payment_mod_id)
+		payment_mod_to_delete.delete
+		flash[:error] = "Deleted fee modification."
+		redirect_to edit_school_path(school_id)
 	end
 
 	def post_payment_mod

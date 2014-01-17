@@ -16,6 +16,9 @@ JlhsMlk::Application.routes.draw do
   match 'admin/edit_school/:id/post_payment' => 'dashboard#post_payment', :as => "post_payment"
   match 'admin/edit_school/:id/post_payment_mod' => 'dashboard#post_payment_mod', :as => "post_payment_mod"
   match 'admin/register_school/:id' => 'dashboard#register_school', :as => "register_school"
+  match 'admin/unregister_school/:id' => 'dashboard#unregister_school', :as => "unregister_school"
+  match 'admin/delete_payment/school/:school_id/payment/:payment_id' => 'dashboard#delete_payment', :as => "delete_payment"
+  match 'admin/delete_payment_mod/school/:school_id/pay_mod/:payment_mod_id' => 'dashboard#delete_payment_modification', :as => 'delete_payment_mod'
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
