@@ -1,0 +1,163 @@
+<style>
+#float {
+  float:right;
+}
+
+#float_right {
+  position: fixed;
+  left: 60%;
+}
+input.button {
+  margin-bottom: 12px;
+}
+input {
+  float:left;
+  margin-right: 10px;
+}
+select {
+  float:left;
+  margin-right: 10px;
+}
+label.required {
+  display: none;
+}
+
+label.optional {
+  display: none;
+}
+
+</style>
+<div class="hero-unit">
+  <div class="container">
+    <div id="float_right">
+      <dl class="dl-horizontal">
+        <dt>Fee</dt>
+        <dd><%= number_to_currency(@school_to_edit.mod_amount_due) %></dd>
+        <dt>Paid</dt>
+        <dd><%= number_to_currency(@school_to_edit.amount_paid) %></dd>
+        <dt>Owe</dt>
+        <dd><%= number_to_currency(@school_to_edit.mod_amount_due-@school_to_edit.amount_paid) %></dd>
+      </dl>
+    </div>
+    <h1><%= @school_to_edit.name %></h1>
+    <p><%= @school_to_edit.coach %> <br> Status: <%= @school_to_edit.done ? "Registered" : "Unregistered" %></p>
+  </div>
+</div>
+<div class="row">
+  <div class="span11 offset1"><h2>Fee Modifications</h2></div>
+</div>
+<div class="row well">
+  <div class="span5 offset1">
+    Enter in a positive amount if they owe us more money (ex. late drop). Enter in a negative amount if we need to refund them money.
+  </div>
+</div>
+<div class="row">
+  <div class="span6 offset1">
+    <% if @school_to_edit.payment_modifications == [] %>
+      None so far. <br><br>
+    <% else %>
+      <table class="table">
+          <thead>
+            <th>Amount</th>
+            <th>Reason</th>
+          </thead>
+          <% @school_to_edit.payment_modifications.each do |pay_mod| %>
+            <tr class="<%= pay_mod.amount_change <= 0 ? "error" : "success" %>">
+              <td><%= number_to_currency(pay_mod.amount_change) %></td>
+              <td><%= pay_mod.reason %></td>
+            </tr>
+          <% end %>
+        </table>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span11 offset1">
+    <%= simple_form_for(:post_payment_mod, :url => post_payment_mod_path(@school_to_edit.id), :method => :post) do |f| %>
+        <%= f.input :amount_change, :placeholder => "Amount Change", :required => true %>
+        <%= f.input :reason, :placeholder => "Reason", :required => true %>
+        <%= f.submit "Add", :class => "btn btn-success" %>
+    <% end %>
+  </div>
+</div>
+<br><br><br>
+<div class="row">
+  <div class="span11 offset1"><h2>Make Payments</h2></div>
+</div>
+<div class="row well">
+  <div class="span5 offset1">
+    If they are paying by cash, leave the last two boxes blank.
+  </div>
+</div>
+<div class="row">
+  <div class="span8 offset1">
+    <% if @school_to_edit.payments == [] %>
+      None so far. <br><br>
+    <% else %>
+      <table class="table">
+          <thead>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Bank</th>
+            <th>Check Number</th>
+          </thead>
+          <% @school_to_edit.payments.each do |payment| %>
+            <tr class="<%= payment.type == "Check" ? "warning" : "success" %>">
+              <td><%= payment.type %></td>
+              <td><%= number_to_currency(payment.amount) %></td>
+              <td><%= payment.bank %></td>
+              <td><%= payment.check_number %></td>
+            </tr>
+          <% end %>
+        </table>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="span11 offset1">
+    <%= simple_form_for(:post_payment, :url => post_payment_path(@school_to_edit.id), :method => :post) do |f| %>
+        <%= f.input :type, collection: @check_or_cash , :required => true %>
+        <%= f.input :amount, :placeholder => "Amount", :required => true %>
+        <%= f.input :bank, :placeholder => "Bank", :required => false %>
+        <%= f.input :check_number, :placeholder => "Check Number", :required => false %>
+        <%= f.submit "Add", :class => "btn btn-success" %>
+    <% end %>
+  </div>
+</div>
+<br><br><br>
+<div class="row">
+  <div class="span11 offset1"><h2>Finally...</h2></div>
+</div>
+<div class="row well">
+  <% if not @school_to_edit.done %>
+    <div class="span4 offset1">
+      When you're done click this cool red button.
+    </div>
+    <div class="span2">
+      <%= link_to "Register", register_school_path(@school_to_edit.id), :class => "btn btn-danger" %>
+    </div>
+  <% else %>
+    <div class="span4 offset1">
+      This school is already registered. Yay!
+    </div>
+  <% end %>
+</div>
+
+
+ 
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>One fine body…</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-primary">Save changes</button>
+  </div>
+</div>

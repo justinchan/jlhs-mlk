@@ -11,7 +11,44 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140111042050) do
+ActiveRecord::Schema.define(:version => 20140117030438) do
+
+  create_table "cashes", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "checks", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "payment_modifications", :force => true do |t|
+    t.string   "reason"
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
+    t.decimal  "amount_change", :precision => 8, :scale => 2
+    t.integer  "school_id"
+  end
+
+  create_table "payments", :force => true do |t|
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.decimal  "amount",       :precision => 8, :scale => 2
+    t.integer  "school_id"
+    t.string   "type"
+    t.string   "bank"
+    t.integer  "check_number"
+  end
+
+  create_table "schools", :force => true do |t|
+    t.string   "name"
+    t.string   "coach"
+    t.datetime "created_at",                                                  :null => false
+    t.datetime "updated_at",                                                  :null => false
+    t.decimal  "amount_due", :precision => 8, :scale => 2
+    t.boolean  "done",                                     :default => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -28,6 +65,7 @@ ActiveRecord::Schema.define(:version => 20140111042050) do
     t.datetime "updated_at",                             :null => false
     t.string   "first_name"
     t.string   "last_name"
+    t.integer  "school_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

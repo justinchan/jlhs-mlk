@@ -1,3 +1,51 @@
-<div class="container">
-<h1>School List<h1>
+<div id="registration_home">
+<div class="row">
+	<div class="span11 offset1"><h1>Registration Home</h1><hr></div>
+</div>
+<div class="row">
+  <div class="span11 offset1"><h2>Unregistered Schools</h2></div>
+</div>
+<div class="row">
+  <div class="span11 offset1">
+    <table class="table">
+    <thead>
+      <th>Name</th>
+      <th>Coach</th>
+      <th>Fee</th>
+    </thead>
+    <% @unregistered_schools.each do |unreg_school| %>
+    <tr class="warning">
+      <td><%= link_to unreg_school.name, edit_school_path(unreg_school.id) %></td>
+      <td><%= unreg_school.coach %></td>
+      <td><%= number_to_currency(unreg_school.mod_amount_due) %></td>
+    </tr>
+    <% end %>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="span11 offset1"><h2>Registered Schools</h2></div>
+</div>
+<div class="row">
+  <div class="span11 offset1">
+    <table class="table">
+    <thead>
+      <th>Name</th>
+      <th>Coach</th>
+      <th>Fee</th>
+      <th>Fee Changed?</th>
+      <th>Registered By<th>
+    </thead>
+    <% @registered_schools.each do |reg_school| %>
+    <tr class="success">
+      <td><%= link_to reg_school.name, edit_school_path(reg_school.id) %></td>
+      <td><%= reg_school.coach %></td>
+      <td><%= number_to_currency(reg_school.mod_amount_due) %></td>
+      <td><%= reg_school.has_payment_modification %></td>
+      <td><%= reg_school.user.name %></td>
+    </tr>
+    <% end %>
+    </table>
+  </div>
+</div>
 </div>

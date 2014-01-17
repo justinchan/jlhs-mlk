@@ -1,0 +1,57 @@
+<style>
+input.button {
+  margin-bottom: 12px;
+}
+input {
+  float:left;
+  margin-right: 10px;
+}
+label.required {
+  display: none;
+}
+</style>
+
+<div id="registration_home">
+<div class="row">
+	<div class="span11 offset1"><h1>Administration Home</h1><hr></div>
+</div>
+<div class="row">
+  <div class="span11 offset1"><h2>Add School</h2></div>
+</div>
+<div class="row">
+  <div class="span11 offset1">
+    <%= simple_form_for(:post_school, :url => post_school_path, :method => :post) do |f| %>
+        <%= f.input :name, :placeholder => "Name", :required => true %>
+        <%= f.input :coach, :placeholder => "Coach", :required => true %>
+        <%= f.input :amount_due, :placeholder => "Amount Due", :required => true %>
+        <%= f.submit "Add", :class => "btn btn-success" %>
+    <% end %>
+  </div>
+</div>
+<br><br>
+<div class="row">
+  <div class="span11 offset1"><h2>School List</h2></div>
+</div>
+<div class="row">
+  <div class="span11 offset1">
+    <table class="table table-striped">
+    <thead>
+      <th>#</th>
+      <th>Name</th>
+      <th>Coach</th>
+      <th>Fee</th>
+    </thead>
+    <% counter = 1 %>
+    <% @schools.each do |school| %>
+    <tr id="<%= school.name.gsub(/(\W|\d)/, "") %><%= school.id %>">
+      <td><%= counter %><% counter += 1 %></td>
+      <td><%= school.name %></td>
+      <td><%= school.coach %></td>
+      <td><%= number_to_currency(school.mod_amount_due) %></td>
+      <td><%= link_to "Delete", delete_school_path(school.id), :class => "btn btn-danger" %></td>
+    </tr>
+    <% end %>
+    </table>
+  </div>
+</div>
+</div>

@@ -8,8 +8,14 @@ JlhsMlk::Application.routes.draw do
   #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
 
-  match 'dashboard' => "dashboard#index"
-
+  match 'dashboard' => "dashboard#index", :as => 'dashboard'
+  match 'admin' => 'dashboard#admin', :as => "admin"
+  match 'admin/post_school' => 'dashboard#post_school', :as => "post_school"
+  match 'admin/delete_school/:id' => 'dashboard#delete_school', :as => "delete_school"
+  match 'admin/edit_school/:id' => 'dashboard#edit_school', :as => "edit_school"
+  match 'admin/edit_school/:id/post_payment' => 'dashboard#post_payment', :as => "post_payment"
+  match 'admin/edit_school/:id/post_payment_mod' => 'dashboard#post_payment_mod', :as => "post_payment_mod"
+  match 'admin/register_school/:id' => 'dashboard#register_school', :as => "register_school"
   # Sample of named route:
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
