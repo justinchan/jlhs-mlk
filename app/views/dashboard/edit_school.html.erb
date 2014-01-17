@@ -40,9 +40,29 @@ label.optional {
       </dl>
     </div>
     <h1><%= @school_to_edit.name %></h1>
-    <p><%= @school_to_edit.coach %> <br> Status: <%= @school_to_edit.done ? "Registered" : "Unregistered" %></p>
+    <p><%= @school_to_edit.coach %> <br> Status: <%= @school_to_edit.done ? "Registered" : "Unregistered" %> <br> Phone number: <%= number_to_phone(@school_to_edit.phone_number, :area_code => true) %></p>
   </div>
 </div>
+
+<div class="row">
+  <div class="span11 offset1"><h2>Emergency Contact</h2></div>
+</div>
+<div class="row well">
+  <div class="span8 offset1">
+    First, get their emergency phone contact. They don't actually NEED to give one to you, so you can skip this if they don't want to do it. If you make a mistake, add the number again and it will replace the mistaken one.
+  </div>
+</div>
+<div class="row">
+  <div class="span11 offset1">
+      Phone number should be in format: XXXXXXXXXX (ex. 5102057089)<br><br>
+      <%= simple_form_for(:post_phone_number, :url => post_phone_number_path(@school_to_edit.id), :method => :post) do |f| %>
+          <%= f.input :phone_number, :placeholder => "Phone Number", :required => true %>
+          <%= f.submit "Add", :class => "btn btn-success" %>
+      <% end %>
+  </div>
+</div>
+
+<br><br><br>
 <div class="row">
   <div class="span11 offset1"><h2>Fee Modifications</h2></div>
 </div>
@@ -135,7 +155,7 @@ label.optional {
 <div class="row well">
   <% if not @school_to_edit.done %>
     <div class="span4 offset1">
-      When you're done click this cool red button.
+       Click this cool red button to finish registering the school.
     </div>
     <div class="span2">
       <%= link_to "Register", register_school_path(@school_to_edit.id), :class => "btn btn-danger" %>
@@ -149,6 +169,7 @@ label.optional {
     </div>
   <% end %>
 </div>
+
 
 
  

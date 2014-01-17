@@ -34,6 +34,20 @@ class DashboardController < ApplicationController
 		redirect_to dashboard_path
 	end
 
+	def post_phone_number
+		param_id = params[:id]
+		school_to_edit = School.find_by_id(param_id)
+		input = params[:post_phone_number]
+		phone_number = input[:phone_number]
+		school_to_edit.phone_number = phone_number
+		if school_to_edit.save
+			flash[:notice] = "Added phone number."
+		else 
+			flash[:error] = "Incorrect format for phone number."
+		end
+		redirect_to edit_school_path(param_id)
+	end
+
 	def post_school
 		input = params[:post_school]
 		name = input[:name]

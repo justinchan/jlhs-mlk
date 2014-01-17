@@ -34,14 +34,16 @@
       <th>Coach</th>
       <th>Fee</th>
       <th>Fee Changed?</th>
+      <th>Outstanding Balance</th>
       <th>Registered By<th>
     </thead>
     <% @registered_schools.each do |reg_school| %>
-    <tr class="success">
+    <tr class="<%= reg_school.mod_amount_due-reg_school.amount_paid == 0 ? "success" : reg_school.mod_amount_due-reg_school.amount_paid > 0 ? "error" : "info" %>">
       <td><%= link_to reg_school.name, edit_school_path(reg_school.id) %></td>
       <td><%= reg_school.coach %></td>
       <td><%= number_to_currency(reg_school.mod_amount_due) %></td>
       <td><%= reg_school.has_payment_modification %></td>
+      <td><%= number_to_currency(reg_school.mod_amount_due-reg_school.amount_paid) %></td>
       <td><%= reg_school.user.name %></td>
     </tr>
     <% end %>

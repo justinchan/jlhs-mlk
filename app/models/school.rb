@@ -1,8 +1,11 @@
 class School < ActiveRecord::Base
-  attr_accessible :coach, :name, :amount_due, :original_amount_due, :done
-  has_one :user
+  attr_accessible :coach, :name, :amount_due, :done, :phone_number
+  belongs_to :user
   has_many :payment_modifications, :dependent => :destroy
   has_many :payments, :dependent => :destroy
+
+  validates :phone_number, :numericality => :true, :allow_blank => :true
+  validates :phone_number, :format => { :with => /^[0-9]{10}$/ }, :allow_blank => true
 
   def has_payment_modification
     if payment_modifications == []

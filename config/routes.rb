@@ -15,6 +15,7 @@ JlhsMlk::Application.routes.draw do
   match 'admin/edit_school/:id' => 'dashboard#edit_school', :as => "edit_school"
   match 'admin/edit_school/:id/post_payment' => 'dashboard#post_payment', :as => "post_payment"
   match 'admin/edit_school/:id/post_payment_mod' => 'dashboard#post_payment_mod', :as => "post_payment_mod"
+  match 'admin/edit_school/:id/post_phone_number' => 'dashboard#post_phone_number', :as => "post_phone_number"
   match 'admin/register_school/:id' => 'dashboard#register_school', :as => "register_school"
   match 'admin/unregister_school/:id' => 'dashboard#unregister_school', :as => "unregister_school"
   match 'admin/delete_payment/school/:school_id/payment/:payment_id' => 'dashboard#delete_payment', :as => "delete_payment"
