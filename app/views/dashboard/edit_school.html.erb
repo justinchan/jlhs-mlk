@@ -150,6 +150,24 @@ label.optional {
 </div>
 <br><br><br>
 <div class="row">
+  <div class="span11 offset1"><h2>Receipt</h2></div>
+</div>
+<div class="row well">
+  <div class="span8 offset1">
+    If they need a receipt, enter their email into the box and press send.
+  </div>
+</div>
+<div class="row">
+  <div class="span11 offset1">
+      <%= simple_form_for(:post_email, :url => post_email_path(@school_to_edit.id), :method => :post) do |f| %>
+          <%= f.input :email, :placeholder => "Email", :required => true %>
+          <%= f.submit "Add", :class => "btn btn-success" %>
+      <% end %>
+  </div>
+</div>
+
+<br><br><br>
+<div class="row">
   <div class="span11 offset1"><h2>Finally...</h2></div>
 </div>
 <div class="row well">

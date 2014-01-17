@@ -1,0 +1,24 @@
+Hello,
+
+Thank you for attending the 2014 MLK Invitation! This email is to confirm your registration payment.
+
+Your total fee: <%= number_to_currency(@school.mod_amount_due) %>
+
+Payments:
+<% @school.payments.each do |payment| %>
+<% if payment.type == "Cash" %>
+<%= payment.type %> : <%= number_to_currency(payment.amount) %>
+<% else %>
+<%= payment.type %> : <%= number_to_currency(payment.amount) %> (<%= payment.bank %>, Check number: <%= payment.check_number %>)
+<% end %>
+<% end %>
+
+Payment total: <%= number_to_currency(@school.amount_paid) %>
+
+If you are due a refund, we will get it back to you as soon as possible.
+
+If you have any questions, please do not hesitate to contact us! We hope you have a great weekend!
+
+Best,
+
+2014 MLK Tournament Staff

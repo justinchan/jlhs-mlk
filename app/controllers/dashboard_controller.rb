@@ -48,6 +48,16 @@ class DashboardController < ApplicationController
 		redirect_to edit_school_path(param_id)
 	end
 
+	def post_email
+		param_id = params[:id]
+		school_to_email = School.find_by_id(param_id)
+		input = params[:post_email]
+		email = input[:email]
+		SchoolMailer.receipt(email, school_to_email).deliver
+		flash[:notice] = "School emailed."
+		redirect_to edit_school_path(param_id)
+	end
+
 	def post_school
 		input = params[:post_school]
 		name = input[:name]
